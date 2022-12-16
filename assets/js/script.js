@@ -22,6 +22,7 @@ function openChat()
 
     chat.classList.remove( 'close-chatbox' );
     chat.classList.add( 'open-chatbox' );
+    button.classList.remove('button-animation-hover')
     button.classList.remove('button-animation')
     button.classList.remove( 'open-button' );
     button.classList.add( 'hide-button' )

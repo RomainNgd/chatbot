@@ -10,8 +10,15 @@
     <title>Chatbox</title>
 </head>
 <body>
+    <div id="bulle" class="hide-bulle">
+        <div class="brand">
+            <img src="./assets/img/bot-logo.png" alt="bot" class="logo">
+            <h2 class="name">BILLY</h2>
+        </div>
+        Bonjour, je suis billy, un robot à votre service. <br> Posez moi une question !
+    </div>
     <div class="button-animation" id="chat-button" onclick="openChat()"><img src="./assets/img/logo.svg" alt="logo" class="openlogo"></div>
-    <div id="chatbox" class="hide-chatbox">
+    <div id="chatbox" class="close-chatbox">
         <div id="chatbox-header">
             <div class="brand">
                 <img src="./assets/img/bot-logo.png" alt="bot" class="logo">
@@ -27,7 +34,7 @@
             </div>
         </div>
         <div id="footer-chatbox">
-            <input type="text" id="message" placeholder="Votre message">    
+            <input type="text" id="message" placeholder="Votre message">
             <img onclick="sendMessage()" id="envoyer" src="./assets/img/send-message.png" alt="send butto">
         </div>
     </div>
