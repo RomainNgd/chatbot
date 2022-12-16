@@ -7,6 +7,10 @@
     --gray-color: #e4e6eb;
 }
 
+::-webkit-scrollbar-track{
+    width: 10px;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -185,6 +189,7 @@ body{
     position: absolute;
     right: 20px;
     top: 20px;
+    cursor: pointer;
 }
 
 .openlogo{
@@ -295,7 +300,18 @@ body{
     overflow-x: unset;
     padding-left: 7px;
     padding-right: 7px;
+    scrollbar-color: var(--light-color) transparent;
+    scrollbar-width: thin;
 }
+
+#message-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  /* Ascenseur */
+  #message-box::-webkit-scrollbar-thumb {
+    background: var(--light-color);
+    border-radius: 8px;
+  }
 
 /** footer **/
 
