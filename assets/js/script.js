@@ -21,7 +21,7 @@ croix.addEventListener('click', ()=>{
     bulle.classList.add('bulle-animation-reverse')
     setTimeout(()=>{
         bulle.classList.add('hide-bulle')
-    }, 5000)
+    }, 500)
 })
 
 button.addEventListener('mouseover', ()=>{
