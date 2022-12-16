@@ -22,6 +22,7 @@ function openChat()
 
     chat.classList.remove( 'close-chatbox' );
     chat.classList.add( 'open-chatbox' );
+    button.classList.remove('button-animation')
     button.classList.remove( 'open-button' );
     button.classList.add( 'hide-button' )
     // insertAdjacentHTML( "beforeend", "<img src='./assets/img/bot-logo.png' height='25' width='auto' class='picture-ai'><div class='message-ai'>" + message +"</div>" );
@@ -46,6 +47,7 @@ function closeChat()
     chat.classList.remove( 'hide-chatbox' );
     chat.classList.remove( 'open-chatbox' );
     button.classList.remove( 'hide-button' );
+    button.classList.add('button-animation')
     button.classList.add( 'open-button' );
 }
 
