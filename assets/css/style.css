@@ -1,0 +1,286 @@
+/* style général / variables **/
+
+:root{
+    --light-color: #f0f2f5;
+    --main-color: #857dff;
+    --main-dark-color: #7B39EB;
+    --gray-color: #e4e6eb;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 2000px;
+    background-color: var(--light-color);
+}
+
+/** animations **/
+
+@keyframes loading {
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(1turn);
+    }
+}
+  
+@keyframes bounces {
+    0%{
+        transform: translateY(0);
+    }
+    7% {
+        transform: translateY(-35px);
+    }
+    14% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-25px);
+    }
+    25% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-15px);
+    }
+    35%{
+        transform: translateY(0);
+    }
+    40%{
+        transform: translateY(-5px);
+    }
+    45%{
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/** open/close button */
+
+#chat-button{
+    position: fixed;
+    width: 4em;
+    height: 4em;
+    background-color: var(--main-color);
+    border-radius: 100%;
+    bottom: 0.5em;
+    right: 0.5em;
+    display: flex;
+    animation: 2s linear 1s infinite bounces;
+    cursor: pointer;
+}
+
+.openlogo{
+    width: 2.5em;
+    margin: auto;
+}
+
+.hide-chatbox{
+    transform: translateY( 100% );
+}
+
+.hide-button{
+    transform: translateY( calc( 100% + 0.5em ) );
+    transition: transform 0.5s ease-in-out;
+}
+
+.close-chatbox{
+    transform: translateY( 100% );
+    transition: transform 0.5s ease-in-out;
+}
+
+.open-chatbox{
+    transform: translateY( 0% );
+    transition: transform 0.5s ease-in-out;
+}
+
+.open-button{
+    transform: translateY( calc( 0% - 0.5em ) );
+    transition: transform 0.5s ease-in-out;
+}
+
+@media (max-width: 400px) {
+    #chat-button{
+        animation: none;
+        height: 3em;
+        width: 3em;
+    }
+    .openlogo{
+        width: 2em;
+    }
+    
+}
+
+/** chatbox **/
+
+#chatbox{
+    /* display: none; */
+    position: fixed;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width: 20em;
+    right: 1em;
+    bottom: 0;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2),0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+/** header **/
+#chatbox-header{
+    display: flex;
+    justify-content: space-between;
+    height: 3em;
+    width: auto;
+    background-color: var(--main-dark-color);
+    padding: 0 0.5em 0 0.5em;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1),0 -1px rgba(0, 0, 0, 0.1) inset,0 2px 1px -1px rgba(255, 255, 255, 0.5) inset;
+}
+
+.logo {
+    width: 2.5em;
+}
+
+.name {
+    margin-left: 20px;
+    font-family: 'Secular One';
+    color: white;
+}
+
+#hide {
+    width: 1em;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#reset {
+    width: 1em;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+}
+
+/** body **/
+
+#body-chatbox{
+    position: relative;
+    width: 100%;
+    height: 21em;
+    overflow-y: auto;
+}
+
+#message-box
+{
+    overflow-y: auto;
+    height: 21em;
+    bottom: 0;
+    overflow-x: unset;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/** footer **/
+
+#message{
+    width: 70%;
+    border: none;
+    background-color: var(--light-color);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+#message:focus{
+    outline: 0;
+}
+
+#date {
+    width: 100%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: medium;
+}
+
+#footer-chatbox
+{
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    align-items: center;
+    border-width: 0;
+    border-top-width: 1px;
+    border-color: var(--gray-color);
+    border-style: solid;
+}
+
+#envoyer{
+    width: 7%;
+}
+#envoyer:hover{
+    scale: 1.3;
+    cursor: pointer;
+}
+/** message style **/
+
+.message-ai{
+    position: relative;
+    background-color: var(--gray-color);
+    color: black;
+    padding: 0.4em;
+    bottom: 0;
+    border-radius: 0.3em;
+    width: fit-content;
+    word-break: break-word;
+    vertical-align: bottom;
+        font-family: 'Cabin';
+}
+
+.message-ai:hover{
+    background-color: #d6d8db;
+}
+
+.message-user{
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 0.4em;
+    bottom: 0;
+    margin-left: auto;
+    border-radius: 0.3em;
+    width: fit-content;
+    word-break: break-word;
+    font-family: 'Cabin';
+}
+.message-user:hover{
+    background-color: var(--main-dark-color);
+}
+
+.user-box, .ai-box{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.picture-user{
+    width: 1.8em;
+    margin-left: 0.2em;
+}
+
+.picture-ai{
+    width: 1.8em;
+    margin-right: 0.2em;
+}
+
+.loading{
+    width: 1.8em;
+    animation: 1s infinite loading;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <title>Chatbox</title>
+</head>
+<body>
+    <div class="" id="chat-button" onclick="openChat()"><img src="./assets/img/logo.svg" alt="logo" class="openlogo"></div>
+    <div id="chatbox" class="hide-chatbox">
+        <div id="chatbox-header">
+            <div class="brand">
+                <img src="./assets/img/bot-logo.png" alt="bot" class="logo">
+                <h2 class="name">BILLY</h2>
+            </div>
+            <div class="brand">
+                <img id="reset" class="logo" src="./assets/img/reload.png" alt="" onclick="reset()">
+                <img id="hide" class="logo" src="./assets/img/croix.png" alt="" onclick="closeChat()">
+            </div>
+        </div>
+        <div id="body-chatbox">
+            <div id="message-box">
+            </div>
+        </div>
+        <div id="footer-chatbox">
+            <input type="text" id="message" placeholder="Votre message">    
+            <img onclick="sendMessage()" id="envoyer" src="./assets/img/send-message.png" alt="send butto">
+        </div>
+    </div>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
