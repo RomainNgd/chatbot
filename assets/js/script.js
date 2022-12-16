@@ -2,7 +2,7 @@ let i = 0;
 
 let input = document.getElementById( 'message' );
 const scroller = document.getElementById( 'message-box' );
-const select = document.getElementById( 'palette' );
+const palette = document.getElementById( 'palette' );
 
 input.addEventListener( 'keydown', function(e) {
     if( e.code === "Enter" || e.code === "NumpadEnter" )
@@ -18,6 +18,24 @@ palette.addEventListener( 'change', function(){
     selectColor();
 } )
 
+const bulle = document.getElementById('bulle')
+const button = document.getElementById('chat-button')
+const croix = document.getElementById('bulle-croix')
+
+croix.addEventListener('click', ()=>{
+    bulle.classList.remove('bulle-animation')
+    bulle.classList.add('bulle-animation-reverse')
+    setTimeout(()=>{
+        bulle.classList.add('hide-bulle')
+    }, 5000)
+})
+
+button.addEventListener('mouseover', ()=>{
+    bulle.classList.remove('hide-bulle')
+    bulle.classList.add('bulle-animation')
+})
+
+
 function openChat()
 {
     let chat = document.getElementById( 'chatbox' );
@@ -26,6 +44,8 @@ function openChat()
     let element = document.createElement( 'div' );
     let message = "Bonjour, je suis Billy votre assistant automatique. Que puis-je faire pour vous ?"
 
+    bulle.classList.remove('bulle-animation')
+    bulle.classList.add('hide-bulle')
     chat.classList.remove( 'close-chatbox' );
     chat.classList.add( 'open-chatbox' );
     button.classList.remove('button-animation-hover')

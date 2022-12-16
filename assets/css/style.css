@@ -18,17 +18,31 @@ body{
 
 @keyframes zoomTranslate{
     0%{
-        transform: translate(0, 0);
-    }
-    1%{
-        transform: translate(600px, 200px);
         scale: 0;
+        right: 0.5em;
+        bottom: 0.5em;
     }
     100%{
-        transform: translate(0, 0);
         scale: 1;
+        right: 6em;
+        bottom: 2em;
     }
 }
+
+@keyframes zoomTranslateReverse{
+    0%{
+        scale: 1;
+        right: 6em;
+        bottom: 2em;
+    }
+    100%{
+
+        scale: 0;
+        right: 0.5em;
+        bottom: 0.5em;
+    }
+}
+
 
 @keyframes loading {
     0%{
@@ -107,16 +121,11 @@ body{
     cursor: pointer;
 }
 
-.hide-bulle{
-    scale: 0;
-    bottom: 0.5em;
-    right: 0.5em;
-}
-
 #bulle{
     position: fixed;
-    bottom: 3em;
+    scale: 1;
     right: 6em;
+    bottom: 2em;
     background-color: var(--main-color);
     border: none;
     border-radius: 20px;
@@ -125,9 +134,22 @@ body{
     text-align: left;
     color: white;
     padding: 20px;
-    animation: zoomTranslate 0.5s 2s 1 linear;
 }
-#bulle:before {
+
+.hide-bulle{
+    scale: 0 !important;
+    bottom: 0.5em;
+    right: 0.5em;
+}
+.bulle-animation{
+    animation: zoomTranslate 0.5s 0s 1 linear;
+}
+
+.bulle-animation-reverse{
+    animation: zoomTranslateReverse 0.5s 1 linear;
+}
+
+#bulle::after {
     content: "";
     position: absolute;
     border-left: 20px solid var(--main-color);
@@ -140,16 +162,15 @@ body{
 
 #bulle .brand .logo {
     width: 2em;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 #bulle .brand .name {
     font-size: medium ;
-    margin-left: 20px;
+    margin: 0;
     font-family: 'Secular One';
     color: white;
-}
-
-.hide-bulle{
 }
 
 .button-animation{
@@ -157,6 +178,13 @@ body{
 }
 .button-animation:hover{
     animation: 2s linear 1s infinite shake;
+}
+
+#bulle-croix{
+    width: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
 
 .openlogo{
