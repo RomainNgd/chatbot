@@ -394,3 +394,12 @@ body{
     width: 1.8em;
     animation: 1s infinite loading;
 }
+
+svg.logo .cls-2, svg.picture-ai .cls-2{
+    fill: var( --main-dark-color );
+}
+
+svg#button-svg .cls-2{
+    fill: var( --main-dark-color );
+}
+
