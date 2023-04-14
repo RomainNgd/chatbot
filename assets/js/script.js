@@ -89,7 +89,7 @@ function sendMessage()
     let element = document.createElement( 'div' );
     let request = escapeHtml( message.value);
 
-    if( request != '' )
+    if( request !== '' )
     {
         element.classList.add( 'user-box' );
         element.insertAdjacentHTML( "beforeend", "<div class='message-user'>" + message.value +"</div><img src='./assets/img/user.png' class='picture-user'>" );

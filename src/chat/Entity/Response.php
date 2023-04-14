@@ -1,6 +1,6 @@
 <?php
 
-namespace src\entity\Response;
+namespace App\chat\Entity;
 
 class Response
 {
@@ -10,7 +10,7 @@ class Response
 
     public int $priority;
 
-    public function build(array $keyword, string $respons, int $prioriry = 1) : void{
+    public function __construct(array $keyword, string $respons, int $prioriry = 1){
         $this->keyWord = $keyword;
         $this->respons = $respons;
         $this->priority = $prioriry;
