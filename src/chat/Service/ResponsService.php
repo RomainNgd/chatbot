@@ -17,10 +17,11 @@ class ResponsService
     }
 
     public function returnRespons($word){
-        $words = explode(' ', $word);
         $priority = 0;
         $reponse = 'pas compris';
+        $words = explode(' ', $word);
         foreach ($words as $item){
+            $item = strtolower(htmlentities($item));
             $result = $this->responsRepository->getResponse($item);
             if ($result !== false && $result[1] > $priority){
                     $priority = $result[1];
