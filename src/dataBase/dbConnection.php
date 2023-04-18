@@ -2,19 +2,17 @@
 namespace App\database;
 use Exception;
 use PDO;
-
 class dbConnection{
 
     private string $host = 'localhost';
 
     private string $dataBase = 'chatbot';
 
-    private string $user = 'root2';
+    private string $user = 'root';
 
-    private string $password = 'secret';
+    private string $password = '';
 
     public function __construct(){
-
     }
 
     public function getDataBase(){

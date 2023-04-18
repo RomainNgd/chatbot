@@ -17,6 +17,10 @@ class ResponsService
     }
 
     public function returnRespons($word){
-        return json_encode($this->responsRepository->getResponse($word)[0]);
+       $reponse = $this->responsRepository->getResponse($word);
+       if (!$reponse){
+           return json_encode('pas compris');
+       }
+       return json_encode($reponse[0]);
     }
 }

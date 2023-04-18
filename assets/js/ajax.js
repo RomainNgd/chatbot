@@ -3,9 +3,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     btn.addEventListener('click', ()=>{
         let message = getMessage();
         display(message, 'user')
-        let reponse = response(message)
-        display(reponse, 'bot')
-
+        response(message).then(result =>{
+            display(result, 'bot')
+        })
+    .catch(error=>{
+            display('je ne comprend pas votre message désolé veuillez reformulez')
+        })
     })
 })
 
@@ -14,30 +17,28 @@ function display(string, people){
     box.insertAdjacentHTML('beforeend', '<div> <b>' + people + '</b>' + string + '</div>')
 }
 
-async function response(message){
+function response(message){
 
-    let reponse
-    await fetch('src/chatApi.php', {
+    return  fetch('src/chatApi.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            method: 'myMethod'
+            message: message,
+            method: 'returnRespons'
         })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                reponse = data.result
-                console.log(reponse)
+                return data.result;
 
             } else {
                 console.error(data.error);
             }
         })
         .catch(error => console.log(error));
-    return reponse
 }
 
 function getMessage(){
