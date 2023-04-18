@@ -7,7 +7,7 @@ const palette = document.getElementById( 'palette' );
 input.addEventListener( 'keydown', function(e) {
     if( e.code === "Enter" || e.code === "NumpadEnter" )
     {
-        if( input.value != '' )
+        if( input.value !== '' )
         {
             sendMessage();
         }
@@ -53,7 +53,7 @@ function openChat()
     button.classList.remove( 'open-button' );
     button.classList.add( 'hide-button' )
     // insertAdjacentHTML( "beforeend", "<img src='./assets/img/bot-logo.png' height='25' width='auto' class='picture-ai'><div class='message-ai'>" + message +"</div>" );
-    if( i == 0 )
+    if( i === 0 )
     {
         let date = new Date;
         date = date.toLocaleString()
@@ -102,7 +102,6 @@ function sendMessage()
 }
 
 function aiInterpretation( request ) {
-
     return  fetch('src/chatApi.php', {
         method: 'POST',
         headers: {
@@ -127,6 +126,7 @@ function aiInterpretation( request ) {
 
 function iaResponse( message )
 {
+    message = message.slice(1, message.length - 1)
     let box = document.getElementById( 'message-box' );
     let element = document.createElement( 'div' );
 
