@@ -27,7 +27,7 @@ class ResponsRepository{
     }
 
     public function getResponse(string $keyword){
-        $query = 'SELECT respons FROM c_respons WHERE word = :word';
+        $query = 'SELECT respons, priority FROM c_respons WHERE word = :word';
         $get = $this->db->prepare($query);
         $get->execute([
             'word' => $keyword,

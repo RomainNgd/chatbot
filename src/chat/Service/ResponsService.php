@@ -17,10 +17,16 @@ class ResponsService
     }
 
     public function returnRespons($word){
-       $reponse = $this->responsRepository->getResponse($word);
-       if (!$reponse){
-           return json_encode('pas compris');
-       }
-       return json_encode($reponse[0]);
+        $words = explode(' ', $word);
+        $priority = 0;
+        $reponse = 'pas compris';
+        foreach ($words as $item){
+            $result = $this->responsRepository->getResponse($item);
+            if ($result !== false && $result[1] > $priority){
+                    $priority = $result[1];
+                    $reponse = $result[0];
+            }
+        }
+       return json_encode($reponse);
     }
 }
