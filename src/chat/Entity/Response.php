@@ -4,15 +4,43 @@ namespace App\chat\Entity;
 
 class Response
 {
-    public array $keyWord = [];
+    private int $id;
 
-    public string $respons = '';
+    private string $response;
 
-    public int $priority;
+    public function __construct(string $response){
+        $this->response = $response;
+    }
 
-    public function __construct(array $keyword, string $respons, int $prioriry = 1){
-        $this->keyWord = $keyword;
-        $this->respons = $respons;
-        $this->priority = $prioriry;
+    /**
+     * @return string
+     */
+    public function getResponse(): string
+    {
+        return $this->response;
+    }
+
+    /**
+     * @param string $response
+     */
+    public function setResponse(string $response): void
+    {
+        $this->response = $response;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

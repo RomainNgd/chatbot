@@ -1,8 +1,11 @@
 <?php
 require_once __DIR__ . '/chat/Service/ResponsService.php';
+
 use App\chat\Service\ResponsService;
+
 $responsService = new ResponsService();
-$responsService->returnRespons('bonjour commande test');
+$reponse = $responsService->returnRespons('je cherche des palissade');
+var_dump($reponse);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);

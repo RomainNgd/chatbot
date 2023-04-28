@@ -2,6 +2,7 @@
 
 namespace App\chat\Repository;
 
+use App\chat\Entity\Produit;
 use App\chat\Entity\Response;
 use App\database\dbConnection;
 
@@ -14,27 +15,19 @@ class ResponsRepository{
     }
 
     public function addResponse(Response $response): void{
-
-        foreach ($response->keyWord as $keyword){
-            $query = 'INSERT INTO respons (word, respons) VALUES (:word, :respons, :priority)';
-            $insert = $this->db->prepare($query);
-            $insert->execute([
-                'word' => $keyword,
-                'respons' => $response->respons,
-                'priority' =>$response->priority,
-            ]) or die(print_r($this->db->errorInfo()));
-        }
+        $query = 'INSERT INTO c_response (response) VALUES (:response)';
+        $insert = $this->db->prepare($query);
+        $insert->execute([
+            'response' => $response->getResponse(),
+        ]) or die(print_r($this->db->errorInfo()));
     }
 
     public function getResponse(string $keyword){
-        $query = 'SELECT respons, priority FROM c_respons WHERE word = :word';
+        $query = 'SELECT response, priority FROM c_keyword INNER JOIN c_response ON c_keyword.response_id = c_response.id WHERE keyword = :keyword';
         $get = $this->db->prepare($query);
         $get->execute([
-            'word' => $keyword,
+            'keyword' => $keyword,
         ]) or die(print_r($this->db->errorInfo()));
         return $get->fetch();
-
     }
-
-
 }
