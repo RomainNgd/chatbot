@@ -108,15 +108,14 @@ function aiInterpretation( request ) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            message: request,
+            message: request.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
             method: 'returnRespons'
         })
     })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                return iaResponse( data.result );
-
+                return iaResponse( JSON.parse(data.result));
             } else {
                 console.error(data.error);
             }
@@ -126,7 +125,7 @@ function aiInterpretation( request ) {
 
 function iaResponse( message )
 {
-    message = message.slice(1, message.length - 1)
+    // message = message.slice(1, message.length - 1)
     let box = document.getElementById( 'message-box' );
     let element = document.createElement( 'div' );
 

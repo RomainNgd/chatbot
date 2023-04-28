@@ -27,60 +27,127 @@ class ResponsService
 
     public function searchProduit($sentence)
     {
-        $reponse = false;
+        $responses = [];
         $words = explode(' ', $sentence);
         foreach ($words as $item){
             $item = strtolower(htmlentities($item));
-            $result = $this->produitRepository->getProduit($item);
-            if ($result !== false){
-                $reponse = $result;
+            $results = $this->produitRepository->getProduit($item);
+            if ($results !== false){
+                foreach ($results as $result){
+                    $responses[] = $result;
+                }
             }
         }
-        return $reponse;
+        if (count($responses) > 1){
+            return $this->multipleResponse('produit', $responses);
+        } elseif(count($responses) > 0) {
+            return $this->simpleResponse('produit', $responses[0]);
+        } else {
+            return '';
+        }
     }
 
 
     public function searchCategorie($sentence) : array|string
     {
+        $responses = [];
         $words = explode(' ', $sentence);
-        $reponse= false;
         foreach ($words as $item){
             $item = strtolower(htmlentities($item));
-            $result = $this->categorieRepository->getCategorie($item);
-            if ($result !== false){
-                $reponse = $result;
+            $results = $this->categorieRepository->getCategorie($item);
+            if ($results !== false){
+                foreach ($results as $result){
+                    $responses[] = $result;
+                }
             }
         }
-        return $reponse;
+        if (count($responses) > 1){
+            return $this->multipleResponse('categorie', $responses);
+        } elseif(count($responses) > 0) {
+            return $this->simpleResponse('categorie', $responses[0]);
+        } else {
+            return '';
+        }
     }
 
     public function searchKeyword($sentence): array|string
     {
         $words = explode(' ', $sentence);
-        $reponse = false;
+        $priority = 0;
+        $response = '';
         foreach ($words as $item){
             $item = strtolower(htmlentities($item));
             $result = $this->responsRepository->getResponse($item);
-            if ($result !== false){
-                $reponse = $result;
+            if ($result !== false && $result['priority'] > $priority){
+                $response = $result[0];
+                $priority = $result['priority'];
             }
         }
-        return $reponse;
+        return  $response;
+    }
+
+    public function getPrice($sentence){
+        $product = $this->searchProduit($sentence);
+        return $this->produitRepository->getPrice($product[0]);
     }
 
     public function returnRespons($sentences){
-        $reponse = $this->searchKeyword($sentences);
-        if (!$reponse){
-            $reponse = $this->searchProduit($sentences);
-            if (!$reponse){
-                $reponse = $this->searchCategorie($sentences);
+
+        if(isset($_SESSION['lastkeyword'])){
+            switch ($_SESSION['lastkeyword']){
+                case 'produit' : {
+                    $reponse = $this->searchProduit($sentences);
+                    if (empty($reponse)){
+                        $reponse = 'Je ne trouve pas le produit veuillez vérifiez l\'orthographe';
+                    }
+                    break;
+                }
+                case 'categorie' :{
+                    $reponse = $this->searchCategorie($sentences);
+                    if (empty($reponse)){
+                        $reponse = 'Je ne trouve pas la ctatégorie veuillez vérifiez l\'orthographe';
+                    }
+                    break;
+                }
+                case 'prix' : {
+                    $reponse = $this->getPrice($sentences);
+                    if (empty($reponse)){
+                        $reponse = 'Je ne trouve pas la produit veuillez vérifiez l\'orthographe';
+                    }
+                    break;
+                }
+                default : {
+                    $reponse = $this->searchKeyword($sentences);
+                    $_SESSION['lastkeyword'] = $reponse;
+                }
             }
-        }else{
-            $_SESSION['lastMessage'] = $reponse[0];
+        } else {
+            $reponse = $this->searchKeyword($sentences);
+            if(!empty($this->searchKeyword($sentences))){
+                $_SESSION['lastkeyword'] = $reponse;
+            }
+            else{
+                $reponse = $this->searchProduit($sentences);
+                if (empty($reponse)){
+                    $reponse = $this->searchCategorie($sentences);
+                }
+            }
+            if (!$reponse){
+                $reponse = "Je n'ai pas compris votre message";
+            }
         }
-        if (!$reponse){
-            $reponse = "pas compris";
+        return json_encode($reponse);
+    }
+
+    private function multipleResponse($entity, $results){
+        $response = 'Nous avons trouver plusieurs ' . $entity . 's pour votre demande <br/>';
+        foreach ($results as $result){
+            $response .= $result[$entity] . ' : <a href="'. $result["url"] .'">' . $result['url'] . '</a></br>' ;
         }
-       return json_encode($reponse);
+        return $response;
+    }
+
+    private function simpleResponse($entity, $result){
+       return 'J\'ai trouver un ' . $entity . ' correspondant à votre demande <br/>' . $result[$entity] . ' : <a href="'. $result["url"] .'">' . $result['url'] . '</a>' ;
     }
 }

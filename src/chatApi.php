@@ -4,7 +4,8 @@ require_once __DIR__ . '/chat/Service/ResponsService.php';
 use App\chat\Service\ResponsService;
 
 $responsService = new ResponsService();
-$reponse = $responsService->returnRespons('je cherche des palissade');
+$_SESSION['lastkeyword'] = 'categorie';
+$reponse = $responsService->returnRespons('bois');
 var_dump($reponse);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
