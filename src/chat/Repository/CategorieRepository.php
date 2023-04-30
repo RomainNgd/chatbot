@@ -29,7 +29,7 @@ class CategorieRepository
         $get->execute([
             'categorie' => $word,
         ]) or die(print_r($this->db->errorInfo()));
-        return $get->fetch();
+        return $get->fetchAll();
     }
 
     public function removeCategorie(int $id){

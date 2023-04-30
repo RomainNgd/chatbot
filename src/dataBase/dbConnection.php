@@ -1,19 +1,9 @@
 <?php
-namespace App\database;
+namespace App\Database;
 use Exception;
 use PDO;
-class dbConnection{
-
-    private string $host = 'localhost';
-
-    private string $dataBase = 'chatbot';
-
-    private string $user = 'root';
-
-    private string $password = '';
-
-    public function __construct(){
-    }
+require_once 'dbConfig.php';
+class dbConnection extends dbConfig {
 
     public function getDataBase(){
         try{

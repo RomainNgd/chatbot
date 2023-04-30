@@ -81,6 +81,7 @@ class ResponsService
             if ($result !== false && $result['priority'] > $priority){
                 $response = $result[0];
                 $priority = $result['priority'];
+                $_SESSION['lastkeyword'] = $result[2];
             }
         }
         return  $response;
@@ -91,52 +92,51 @@ class ResponsService
         return $this->produitRepository->getPrice($product[0]);
     }
 
-    public function returnRespons($sentences){
-
+    public function returnRespons($sentences): string{
         if(isset($_SESSION['lastkeyword'])){
             switch ($_SESSION['lastkeyword']){
                 case 'produit' : {
-                    $reponse = $this->searchProduit($sentences);
-                    if (empty($reponse)){
-                        $reponse = 'Je ne trouve pas le produit veuillez vérifiez l\'orthographe';
+                    $response = $this->searchProduit($sentences);
+                    if (empty($response)){
+                        $response = 'Je ne trouve pas le produit veuillez vérifiez l\'orthographe';
                     }
                     break;
                 }
                 case 'categorie' :{
-                    $reponse = $this->searchCategorie($sentences);
-                    if (empty($reponse)){
-                        $reponse = 'Je ne trouve pas la ctatégorie veuillez vérifiez l\'orthographe';
+                    $response = $this->searchCategorie($sentences);
+                    if (empty($response)){
+                        $response = 'Je ne trouve pas la catégorie, vous l\'avez peut être mal orthographié';
                     }
                     break;
                 }
                 case 'prix' : {
-                    $reponse = $this->getPrice($sentences);
-                    if (empty($reponse)){
-                        $reponse = 'Je ne trouve pas la produit veuillez vérifiez l\'orthographe';
+                    $response = $this->getPrice($sentences);
+                    if (empty($response)){
+                        $response = 'Je ne trouve pas la produit dont vous voulez connaitre le prix veuillez vérifiez l\'orthographe';
                     }
                     break;
                 }
                 default : {
-                    $reponse = $this->searchKeyword($sentences);
-                    $_SESSION['lastkeyword'] = $reponse;
+                    $response = $this->searchKeyword($sentences);
                 }
             }
         } else {
-            $reponse = $this->searchKeyword($sentences);
-            if(!empty($this->searchKeyword($sentences))){
-                $_SESSION['lastkeyword'] = $reponse;
-            }
-            else{
-                $reponse = $this->searchProduit($sentences);
-                if (empty($reponse)){
-                    $reponse = $this->searchCategorie($sentences);
+            $response = $this->searchKeyword($sentences);
+            if(empty($this->searchKeyword($sentences))){
+                $response = $this->searchProduit($sentences);
+                if (empty($response)){
+                    $response = $this->searchCategorie($sentences);
                 }
             }
-            if (!$reponse){
-                $reponse = "Je n'ai pas compris votre message";
+            if (!$response){
+                $response = "Je n'ai pas compris votre message";
             }
         }
-        return json_encode($reponse);
+        return json_encode($response);
+    }
+
+    public function resetChat() : void{
+        unset($_SESSION['lastkeyword']);
     }
 
     private function multipleResponse($entity, $results){

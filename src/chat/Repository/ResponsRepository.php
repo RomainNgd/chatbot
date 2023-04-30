@@ -23,7 +23,7 @@ class ResponsRepository{
     }
 
     public function getResponse(string $keyword){
-        $query = 'SELECT response, priority FROM c_keyword INNER JOIN c_response ON c_keyword.response_id = c_response.id WHERE keyword = :keyword';
+        $query = 'SELECT response, priority, keyword FROM c_keyword INNER JOIN c_response ON c_keyword.response_id = c_response.id WHERE keyword = :keyword';
         $get = $this->db->prepare($query);
         $get->execute([
             'keyword' => $keyword,

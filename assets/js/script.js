@@ -80,6 +80,24 @@ function reset(){
     document.getElementById('message-box').innerHTML = ''
     i = 0
     openChat()
+    fetch('src/chatApi.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            method: 'resetChat'
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+               console.log('succes')
+            } else {
+                console.error(data.error);
+            }
+        })
+        .catch(error => console.log(error));
 }
 
 function sendMessage()
