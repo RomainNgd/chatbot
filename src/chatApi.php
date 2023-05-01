@@ -1,20 +1,23 @@
 <?php
-require_once __DIR__ . '/chat/Service/ResponsService.php';
+require_once __DIR__ . '/chat/Service/ChatService.php';
+session_start();
+use App\chat\Service\ChatService;
 
-use App\chat\Service\ResponsService;
-
-$responsService = new ResponsService();
-$reponse = $responsService->returnRespons('categorie');
+$chatService = new ChatService();
+//$reponse = $chatService->findMessage('produit');
 //var_dump($_SESSION['lastkeyword']);
+//var_dump($reponse);
+//$reponse = $chatService->returnRespons('lzq objet en bois');
 //var_dump($reponse);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
-    if (isset($data['method']) && $data['method'] === 'returnRespons') {zzzzzzzzzzzzzzz zzz z qz DZD QQS
-        $result = $responsService->returnRespons($data['message']);
+    if (isset($data['method']) && $data['method'] === 'returnRespons') {
+        $result = $chatService->findMessage($data['message']);
         echo json_encode(['success' => true, 'result' => $result]);
     }elseif (isset($data['method']) && $data['method'] === 'resetChat'){
-        $responsService->resetChat();
+        $result = $chatService->resetChat();
+        echo json_encode(['success' => true, 'result' => $result]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Method not found']);
     }

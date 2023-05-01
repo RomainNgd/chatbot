@@ -36,13 +36,15 @@ button.addEventListener('mouseover', ()=>{
 })
 
 
-function openChat()
+function openChat(message)
 {
     let chat = document.getElementById( 'chatbox' );
     let button = document.getElementById( 'chat-button' );
     let box = document.getElementById( 'message-box' );
     let element = document.createElement( 'div' );
-    let message = "Bonjour, je suis Billy votre assistant automatique. Que puis-je faire pour vous ?"
+    if (message === ''){
+        message = "Bonjour, je suis Billy votre assistant automatique. Que puis-je faire pour vous ?"
+    }
 
     bulle.classList.remove('bulle-animation')
     bulle.classList.add('hide-bulle')
@@ -79,7 +81,6 @@ function closeChat()
 function reset(){
     document.getElementById('message-box').innerHTML = ''
     i = 0
-    openChat()
     fetch('src/chatApi.php', {
         method: 'POST',
         headers: {
@@ -92,7 +93,7 @@ function reset(){
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-               console.log('succes')
+                openChat(JSON.parse(data.result))
             } else {
                 console.error(data.error);
             }

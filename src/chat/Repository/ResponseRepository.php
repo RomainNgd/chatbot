@@ -6,7 +6,7 @@ use App\chat\Entity\Produit;
 use App\chat\Entity\Response;
 use App\database\dbConnection;
 
-class ResponsRepository{
+class ResponseRepository{
 
     private \PDO $db;
 
