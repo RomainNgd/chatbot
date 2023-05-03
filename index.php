@@ -1,4 +1,8 @@
 <?php
+
+use App\Controller\AdminController;
+use App\Controller\MainController;
+
 session_start();
 
 
@@ -7,8 +11,8 @@ define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" :
 require_once 'src/chat/Controllers/AdminController.php';
 require_once 'src/chat/Controllers/MainController.php';
 
-$adminController = new \App\Controller\AdminController();
-$mainController = new \App\Controller\MainController();
+$adminController = new AdminController();
+$mainController = new MainController();
 
 
 try {

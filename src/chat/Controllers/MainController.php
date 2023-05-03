@@ -9,7 +9,7 @@ class MainController{
     protected function genererPage($data){
         extract($data);
         ob_start();
-        require_once($view);
+        require_once($views);
         $page_content = ob_get_clean();
         require_once($template);
     }
@@ -22,8 +22,10 @@ class MainController{
         $data_page = [
             "page_description" => "Description de la page d'accueil",
             "page_title" => "Titre de la page d'accueil",
-            "views" => "views/accueil.views.php",
-            "template" => "views/partials/template.php"
+            "views" => "views/chatbot.php",
+            "template" => "views/partials/template.php",
+            'page_css' => ['style.css'],
+            'page_javascript' => ['script.js']
         ];
         $this->genererPage($data_page);
     }
@@ -34,7 +36,7 @@ class MainController{
             "page_title" => "Page d'erreur",
             "msg" => $msg,
             "views" => "./views/erreur.views.php",
-            "template" => "views/partials/template.php"
+            "template" => "/views/partials/template.php",
         ];
         $this->genererPage($data_page);
     }
