@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 class MainController{
-    private $mainManager;
-
     public function __construct(){
     }
 
@@ -35,8 +33,8 @@ class MainController{
             "page_description" => "Page permettant de gérer les erreurs",
             "page_title" => "Page d'erreur",
             "msg" => $msg,
-            "views" => "./views/erreur.views.php",
-            "template" => "/views/partials/template.php",
+            "views" => "views/erreur.view.php",
+            "template" => "views/partials/template.php",
         ];
         $this->genererPage($data_page);
     }

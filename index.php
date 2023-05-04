@@ -10,6 +10,8 @@ define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" :
     "://" . $_SERVER['HTTP_HOST'] . $_SERVER["PHP_SELF"]));
 require_once 'src/chat/Controllers/AdminController.php';
 require_once 'src/chat/Controllers/MainController.php';
+require_once("src/chat/Controllers/Security.php");
+require_once("src/chat/Controllers/Toolbox.php");
 
 $adminController = new AdminController();
 $mainController = new MainController();
@@ -37,25 +39,31 @@ try {
                         }
                     break;
                 case 'login':
-                    if (isset($_SESSION["chatUser"]) && $_SESSION['chatUser']['role'] === 'admin'){
-                        header("Location:".URL."chatbot/admin");
+                    if (Security::estConnecte()){
+                        header("Location:" . URL . "chatbot/admin");
                     } else {
                         $adminController->login();
                     }
-
-                case 'validationLogin':
+                    break;
+                case 'validationlogin':
                     if (!empty($_POST['login']) && !empty($_POST['password'])) {
                         $login = Security::secureHTML($_POST['login']);
                         $password = Security::secureHTML($_POST['password']);
-                        $adminController->validation_login($login, $password);
+                        $adminController->validationLogin($login, $password);
                     } else {
                         Toolbox::ajouterMessageAlerte(
-                            "Login ou mot de passe non reseigné",
+                            "Login ou mot de passe non renseigné",
                             Toolbox::COULEUR_ROUGE
                         );
                         header('Location:' . URL . "chatbot/login");
                     }
+                    break;
+                default :
+                    $mainController->pageErreur('Cette page n\'existe pas');
+                    break;
             }
+        default :
+            $mainController->pageErreur('Cette page n\'existe pas');
 
     }
 } catch (Exception $e) {

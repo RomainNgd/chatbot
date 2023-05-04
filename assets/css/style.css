@@ -267,13 +267,13 @@ body{
 }
 
 #hide {
-    width: 1em;
+    width: 2em;
     padding: 10px;
     cursor: pointer;
 }
 
 #reset {
-    width: 1em;
+    width: 2em;
     padding: 10px;
     cursor: pointer;
 }
